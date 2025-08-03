@@ -3,12 +3,13 @@ title: "EECS150: Interfaces"
 date: 2025-08-04 03:00:00 +0800
 categories: [hardware]
 tags: [handshake, connectivity, interface]
-reprint:
-    url: https://inst.eecs.berkeley.edu/~eecs151/sp23/files/docs/fifos.html
-    author: Chris Fletcher
-    source: "UC Berkeley College of Engineering Department of Electrical Engineering and Computer Science"
 canonical_url: https://inst.eecs.berkeley.edu/~eecs151/sp23/files/docs/fifos.html
 ---
+
+
+<blockquote class="prompt-warning">
+This article is reprinted from <a href="https://inst.eecs.berkeley.edu/~eecs151/sp23/files/docs/fifos.html">UC Berkeley College of Engineering Department of Electrical Engineering and Computer Science</a> by Chris Fletcher.
+</blockquote>
 
 
 ## 1 Overview
@@ -25,10 +26,13 @@ another with regards to when they need data.
 
 ## 2 The FIFO Interface
 This document’s interface specification, which we will the **FIFO Interface** as it works especially well
-with units that pass data in a single direction, such as FIFOs, is shown in Figure 1.
-![Figure 1: The FIFO Interface](../assets/img/25-08/The-FIFO-Interface.png)
+with units that pass data in a single direction, such as FIFOs, is shown in [Figure 1](#fig-1).
+<figure>
+    <img src="../assets/img/25-08/The-FIFO-Interface.png" alt="Figure 1: The FIFO Interface" id="fig-1">
+    <figcaption>Figure 1: The FIFO Interface</figcaption>
+</figure>
 
-In Figure 1, two modules (called the **source** and the **sink**) are connected to one another. When data
+In [Figure 1](#fig-1), two modules (called the **source** and the **sink**) are connected to one another. When data
 is being passed from module to module, the source is the module that is outputting data. The sink is
 the module that is receiving that data.
 
@@ -52,21 +56,39 @@ The FIFO Interface handshake ensures that data passes from the source to the sin
 has valid data to pass and when the sink is ready to receive that data. In other words, when Valid and
 Ready are both high, data on Data will be latched into the sink on the next rising edge. This is an
 important point: since EECS150 is concerned with synchronous design, data will only be transferred at
-the rising edge. This handshake, and when it passes data, is shown in Figure 2.
-![Figure 2: Data transfer at the rising edge](../assets/img/25-08/Data-transfer-at-the-rising-edge.png)
+the rising edge. This handshake, and when it passes data, is shown in [Figure 2](#fig-2).
+<figure>
+    <img src="../assets/img/25-08/Data-transfer-at-the-rising-edge.png" alt="Figure 2: Data transfer at the rising edge" id="fig-2">
+    <figcaption>Figure 2: Data transfer at the rising edge</figcaption>
+</figure>
 
 This transfer of data happens on every rising edge where Valid and Ready are both asserted. For each
 rising edge, however, only one piece of data is transferred. For example, if Valid and Ready are both high
-for two consecutive cycles, we transfer two data words (on consecutive clock cycles; see Figure 3).
-Note that data transfer only occurs when both Valid and Ready are high. For example, in Figure 4,
-neither Valid nor Ready are high. Thus, no data is transferred. Likewise in Figure 5 and Figure 6: if
-only one of the two handshaking signals is high, no data is transferred. Figure 7 shows another example:
+for two consecutive cycles, we transfer two data words (on consecutive clock cycles; see [Figure 3](#fig-3)).
+Note that data transfer only occurs when both Valid and Ready are high. For example, in [Figure 4](#fig-4),
+neither Valid nor Ready are high. Thus, no data is transferred. Likewise in [Figure 5](#fig-5) and [Figure 6](#fig-6): if
+only one of the two handshaking signals is high, no data is transferred. [Figure 7](#fig-7) shows another example:
 if the two handshaking signals are both high at some point, but are out of phase, no data is transferred.
-![Figure 3: Two data transfers at two consecutive rising edges](../assets/img/25-08/Two-data-transfers-at-two-consecutive-rising-edges.png)
-![Figure 4: Both handshaking signals are low: no data is transferred](../assets/img/25-08/Both-handshaking-signals-are-low-no-data-is-transferred.png)
-![Figure 5: Valid is high and Ready is low: no data is transferred](../assets/img/25-08/Valid-is-high-and-Ready-is-low-no-data-is-transferred.png)
-![Figure 6: Valid is low and Ready is high: no data is transferred](../assets/img/25-08/Valid-is-low-and-Ready-is-high-no-data-is-transferred.png)
-![Figure 7: Both handshaking signals are high at some point, but are out of phase: no data is transferred](../assets/img/25-08/Both-handshaking-signals-are-high-at-some-point-but-are-out-of-phase-no-data-is-transferred.png)
+<figure>
+    <img src="../assets/img/25-08/Two-data-transfers-at-two-consecutive-rising-edges.png" alt="Figure 3: Two data transfers at two consecutive rising edges" id="fig-3">
+    <figcaption>Figure 3: Two data transfers at two consecutive rising edges</figcaption>
+</figure>
+<figure>
+    <img src="../assets/img/25-08/Both-handshaking-signals-are-low-no-data-is-transferred.png" alt="Figure 4: Both handshaking signals are low: no data is transferred" id="fig-4">
+    <figcaption>Figure 4: Both handshaking signals are low: no data is transferred</figcaption>
+</figure>
+<figure>
+    <img src="../assets/img/25-08/Valid-is-high-and-Ready-is-low-no-data-is-transferred.png" alt="Figure 5: Valid is high and Ready is low: no data is transferred" id="fig-5">
+    <figcaption>Figure 5: Valid is high and Ready is low: no data is transferred</figcaption>
+</figure>
+<figure>
+    <img src="../assets/img/25-08/Valid-is-low-and-Ready-is-high-no-data-is-transferred.png" alt="Figure 6: Valid is low and Ready is high: no data is transferred" id="fig-6">
+    <figcaption>Figure 6: Valid is low and Ready is high: no data is transferred</figcaption>
+</figure>
+<figure>
+    <img src="../assets/img/25-08/Both-handshaking-signals-are-high-at-some-point-but-are-out-of-phase-no-data-is-transferred.png" alt="Figure 7: Both handshaking signals are high at some point, but are out of phase: no data is transferred" id="fig-7">
+    <figcaption>Figure 7: Both handshaking signals are high at some point, but are out of phase: no data is transferred</figcaption>
+</figure>
 
 ## 4 Advantages of the FIFO Interface
 The FIFO Interface eliminates timing assumptions in your design and removes intermediate combina-
@@ -99,9 +121,12 @@ logic between the source and sink.
 
 Some modules will have more than one Data port. Such modules should have more than one pair of
 handshaking signals. For example, the standard FIFO, for which this interface is named, takes data in
-and passes data out again. A typical FIFO is shown in Figure 8. Notice that the FIFO serves as both a
+and passes data out again. A typical FIFO is shown in [Figure 8](#fig-8). Notice that the FIFO serves as both a
 source and sink. This is perfectly fine: the FIFO passes and receives data.
-![Figure 8: A FIFO functioning as both a source and sink](../assets/img/25-08/A-FIFO-functioning-as-both-a-source-and-sink.png)
+<figure>
+    <img src="../assets/img/25-08/A-FIFO-functioning-as-both-a-source-and-sink.png" alt="Figure 8: A FIFO functioning as both a source and sink" id="fig-8">
+    <figcaption>Figure 8: A FIFO functioning as both a source and sink</figcaption>
+</figure>
 
 ## 6 A Danger: Combinational Loops
 When you design using the FIFO Interface, you must be sure that the Valid and Ready signals are not
@@ -111,9 +136,12 @@ combinationally linked at either end. In other words, you should not be able to 
 2. Through the combinational logic that generates the Ready signal (in the sink)
 3. Back to the combinational logic that generates the Valid signal (again, in the source)
 
-and visa versa when tracing a path starting at the Ready signal. This path is illustrated in Figure 9.
+and visa versa when tracing a path starting at the Ready signal. This path is illustrated in [Figure 9](#fig-9).
 
-![Figure 9: A combinational loop: avoid this at all costs](../assets/img/25-08/A-combinational-loop-avoid-this-at-all-costs.png)
+<figure>
+    <img src="../assets/img/25-08/A-combinational-loop-avoid-this-at-all-costs.png" alt="Figure 9: A combinational loop: avoid this at all costs" id="fig-9">
+    <figcaption>Figure 9: A combinational loop: avoid this at all costs</figcaption>
+</figure>
 
 If you don’t heed this advice, your design will contain a **combinational loop**. Treat combinational
 loops as you would latches: if you have one in your design, your circuit will fail miserably.
