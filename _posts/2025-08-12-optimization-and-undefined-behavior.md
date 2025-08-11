@@ -231,5 +231,3 @@ Here’s what can still change, even in well-defined code:
 4.  For well-defined code, the logical output is guaranteed, but non-functional properties like timing and precision are not.
 
 Write clean, standard-compliant code. Treat compiler warnings about questionable constructs as serious errors. Understand that the code you write is not the code that runs; it is merely the specification for the code that the optimizer will create. Happy coding!
-
-Of course. Here is a blog post crafted to start with your specific code example and progressively unravel the deep concepts of compiler optimization and Undefined Behavior.
